@@ -1,4 +1,7 @@
 const express = require('express')
+const axios = require('axios');
+const path = require('path')
+
 const { getWalletBalancePromise, 
         getTokenBalancePromise,
         approveToken,
@@ -14,10 +17,10 @@ const {
 // Express
 const app = express()
 app.get('/', (req, res) => { 
-    res.send("hello world") 
+    res.sendFile(path.join(__dirname + "/views/index.html"))
 })
 
-app.get('/approve/:symbol', (req, res) => { 
+app.post('/approve/:symbol', (req, res) => { 
     const symbol = req.params.symbol
     approveToken(symbol)
 })
