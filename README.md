@@ -1,2 +1,2 @@
-# compound-bot
-A lending bot for Compound Finance that helps you maximize interest earned
+# humminglend
+A lending bot that maximizes the interest you earn from decentralized lending protocols like Compound Finance
