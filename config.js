@@ -10,8 +10,8 @@ const tokenAddresses = {
     weth: "0xc778417e063141139fce010982780140aa0cd5ab",
 }
 
-const moneyMarketInterface = JSON.parse(fs.readFileSync('./abi/MoneyMarket.json', 'utf8'))
-const tokenInterface = JSON.parse(fs.readFileSync('./abi/erc20.json', 'utf8'))
+const moneyMarketInterface = JSON.parse(fs.readFileSync('./compound/MoneyMarket.json', 'utf8'))
+const tokenInterface = JSON.parse(fs.readFileSync('./compound/erc20.json', 'utf8'))
 
 module.exports = {
     moneyMarketAddress,

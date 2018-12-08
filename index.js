@@ -1,9 +1,8 @@
 const express = require('express')
-const Web3 = require('web3')
-// web3 = new Web3(new Web3.providers.HttpProvider(
+const { getWalletBalancePromise, 
+        getTokenBalancePromise,
+} = require('./balances')
 
-
-// Address and ABIs for the Compound MoneyMarket Contract and supported tokens
 const {
     moneyMarketAddress,
     tokenAddresses,
@@ -11,19 +10,34 @@ const {
     tokenInterface,
 } = require('./config')
 
-// User-specific port and wallet address info
-// TO-DO: Move to an env file
-const PORT = 3000
-const walletAddress = "0xfb4338272d74373da20b55e6f7351bcbba1edd43"
-
 // Express
 const app = express()
-// app.use(express.static('public'));
-
 app.get('/', (req, res) => { 
     res.send("hello world") 
 })
 
+const PORT = 3000
 app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}!`)
+    console.log(`HummingLend listening on port ${PORT}!`)
+
+
+    // const symbol = "zrx"
+    // console.log(tokenInterface)
+})
+
+// Resolve promises
+let promises = [getWalletBalancePromise()];
+promises = promises.concat(getTokenBalancePromise("bat"));
+promises = promises.concat(getTokenBalancePromise("dai"));
+promises = promises.concat(getTokenBalancePromise("rep"));
+promises = promises.concat(getTokenBalancePromise("weth"));
+promises = promises.concat(getTokenBalancePromise("zrx"));
+
+return Promise.all(promises).then((values) => {
+    console.log('ETH | balance: ',  values[0].balance)
+    console.log('BAT | balance: ',  values[1].balance, `| allowance: `, values[1].allowance)
+    console.log('DAI | balance: ',  values[2].balance, `| allowance: `, values[2].allowance)
+    console.log('REP | balance: ',  values[3].balance, `| allowance: `, values[3].allowance)
+    console.log('WETH | balance: ', values[4].balance, `| allowance: `, values[4].allowance)
+    console.log('ZRX | balance: ',  values[5].balance, `| allowance: `, values[5].allowance)
 })
