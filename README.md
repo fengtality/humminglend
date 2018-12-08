@@ -1,7 +1,9 @@
 # HummingLend
 A lending bot that maximizes the interest you earn from decentralized lending protocols like Compound Finance
 
-## Install
+## Description
+
+## Installation
 1. Install geth
 See https://github.com/ethereum/go-ethereum/wiki/Installing-Geth
 
@@ -21,7 +23,7 @@ yarn install
 
 7. Go to app.compound.finance and wrap your test ETH into WETH. Make sure that you are on the Rinkeby testnet!
 
-## Run
+## How to run
 1. In a separate Terminal window, run an unlocked geth node in light sync mode on Rinkeby
 ```
 geth --rinkeby --sync=light
@@ -31,3 +33,7 @@ geth --rinkeby --sync=light
 ```
 yarn run start-dev
 ```
+
+3. Visit `http://localhost:3000" in your browser
+
+SCREENSHOT OF USER INTERFACE
