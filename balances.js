@@ -20,24 +20,24 @@ web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost:${RPC_PORT}`))
 const getWalletBalancePromise = () => new Promise((resolve, reject) => {
     web3.eth.getBalance(walletAddress, (err, bal) => {
         if (err) reject({ error: 'Ether wallet balance not available', timestamp: new Date() })
-        else resolve({ balance: web3.fromWei(bal, 'ether').toNumber(), timestamp: new Date() })
+        else resolve({ balance: web3.utils.fromWei(bal, 'ether'), timestamp: new Date() })
     })
 })
 
 const getTokenBalancePromise = (symbol) => new Promise((resolve, reject) => {
     const tokenAddress = tokenAddresses[symbol]
-    const tokenContract = web3.eth.contract(tokenInterface).at(tokenAddress)
+    const tokenContract = new web3.eth.Contract(tokenInterface, tokenAddress)
 
-    tokenContract.balanceOf(walletAddress, (err, bal) => {
+    tokenContract.methods.balanceOf(walletAddress).call((err, bal) => {
         if (err) reject({ error: 'Token balance not available', timestamp: new Date() })
         // else resolve({ balance: web3.fromWei(bal, 'ether').toNumber(), timestamp: new Date() })
 
         else {
-            tokenContract.allowance(walletAddress, moneyMarketAddress, (err, allow) => {
+            tokenContract.methods.allowance(walletAddress, moneyMarketAddress).call((err, allow) => {
                 if (err) reject({ error: 'Allowance not available', timestamp: new Date() })
                 resolve({
-                    balance: web3.fromWei(bal, 'ether').toNumber(), 
-                    allowance: web3.fromWei(allow, 'ether').toNumber(), 
+                    balance: web3.utils.fromWei(bal, 'ether'), 
+                    allowance: web3.utils.fromWei(allow, 'ether'), 
                     timestamp: new Date() 
                 })
             })
@@ -45,16 +45,18 @@ const getTokenBalancePromise = (symbol) => new Promise((resolve, reject) => {
     })
 })
 
-// const approveToken = (symbol) => {
-//     const tokenAddress = tokenAddresses[symbol]
-//     const tokenContract = web3.eth.contract(tokenInterface).at(tokenAddress)
+const approveToken = (symbol) => {
+    console.log(symbol)
+    const tokenAddress = tokenAddresses[symbol]
+    const tokenContract = new web3.eth.Contract(tokenInterface, tokenAddress)
 
-//     tokenContract.approve(moneyMarketAddress, )
-// }
-
+    tokenContract.methods.approve(moneyMarketAddress, '10000000000000000000000000000000000000000').send({
+        from: walletAddress
+    }).then(console.log)
+}
 
 module.exports = {
     getWalletBalancePromise,
     getTokenBalancePromise,
-    // approveToken,
+    approveToken,
 }

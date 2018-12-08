@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
-    "web3": "0.20.6"
+    "web3": "^1.0.0-beta.36"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"

@@ -1,6 +1,7 @@
 const express = require('express')
 const { getWalletBalancePromise, 
         getTokenBalancePromise,
+        approveToken,
 } = require('./balances')
 
 const {
@@ -15,6 +16,12 @@ const app = express()
 app.get('/', (req, res) => { 
     res.send("hello world") 
 })
+
+app.get('/approve/:symbol', (req, res) => { 
+    const symbol = req.params.symbol
+    approveToken(symbol)
+})
+
 
 const PORT = 3000
 app.listen(PORT, () => {
