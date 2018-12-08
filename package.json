@@ -1,0 +1,13 @@
+{
+  "name": "humminglend",
+  "version": "1.0.0",
+  "description": "A lending bot that maximizes the interest you earn from decentralized lending protocols like Compound Finance",
+  "main": "index.js",
+  "repository": "git@github.com:CoinAlpha/humminglend.git",
+  "author": "CoinAlpha, Inc.",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "web3": "^1.0.0-beta.36"
+  }
+}
