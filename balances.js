@@ -24,6 +24,7 @@ const getWalletBalancePromise = () => new Promise((resolve, reject) => {
     })
 })
 
+
 const getTokenBalancePromise = (symbol) => new Promise((resolve, reject) => {
     const tokenAddress = tokenAddresses[symbol]
     const tokenContract = new web3.eth.Contract(tokenInterface, tokenAddress)
@@ -76,12 +77,14 @@ const approveToken = (symbol) => {
 const supplyToken = (symbol) => {
     const tokenAddress = tokenAddresses[symbol]
     const moneyMarketContract = new web3.eth.Contract(moneyMarketInterface, moneyMarketAddress)
-    const amount = 100000
+    const amount = web3.utils.toWei('1', 'ether')
 
     moneyMarketContract.methods.supply(tokenAddress, amount).send({
-        from: walletAddress
+        from: walletAddress,
+        gasLimit: 5000000,
     }).then(console.log)
 }
+
 
 module.exports = {
     walletAddress,
