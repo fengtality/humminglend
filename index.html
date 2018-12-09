@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <title>HummingLend</title>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+  </head>
+  <body class="container">
+    <h1>HummingLend</h1>
+    <hr>
+    <h4>APIs</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Approve token</td>
+                <td><code>GET /approve/:symbol</code></td>
+            </tr>
+            <tr>
+                <td>Supply token</td>
+                <td><code>GET /supply/:symbol</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      axios.get('/get/server')
+        .then(function (response) {
+          document.getElementById('people').innerHTML = response.data.map(function (person) {
+            return (
+              '<li class="row">' +
+                '<img src="https://avatars.githubusercontent.com/u/' + person.avatar + '?s=50" class="col-md-1"/>' +
+                '<div class="col-md-3">' +
+                  '<strong>' + person.name + '</strong>' +
+                  '<div>Github: <a href="https://github.com/' + person.github + '" target="_blank">' + person.github + '</a></div>' +
+                  '<div>Twitter: <a href="https://twitter.com/' + person.twitter + '" target="_blank">' + person.twitter + '</a></div>' +
+                '</div>' +
+              '</li><br/>'
+            );
+          }).join('');
+        })
+        .catch(function (err) {
+          document.getElementById('people').innerHTML = '<li class="text-danger">' + err.message + '</li>';
+        });
+    </script>
+  </body>
